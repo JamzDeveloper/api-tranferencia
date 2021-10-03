@@ -31,9 +31,8 @@ class Server {
   routes() {
     this.app.use(this.apiPaths.login, login);
     this.app.use(this.apiPaths.buscarPersona, buscarPersona);
-    this.app.use(this.apiPaths.transferencia,transferencia);
-    this.app.use(this.apiPaths.saldo,obtenerSaldo );
-
+    this.app.use(this.apiPaths.transferencia, transferencia);
+    this.app.use(this.apiPaths.saldo, obtenerSaldo);
   }
 
   listen() {

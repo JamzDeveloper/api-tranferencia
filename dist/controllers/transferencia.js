@@ -39,17 +39,36 @@ exports.__esModule = true;
 exports.getTransferencia = void 0;
 var pool = require("../mysql/database");
 var getTransferencia = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, monto_trans, idpersona_trans, idpersona, dni, clave, personaEnvia, personaResive;
+    var _a, monto_trans, idpersona_trans, idpersona, dni, clave, cuenta, dinero, cuentaResive, personaEnvia, personaResive, fecha, dineroActual, operation;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = req.query, monto_trans = _a.monto_trans, idpersona_trans = _a.idpersona_trans, idpersona = _a.idpersona, dni = _a.dni, clave = _a.clave;
-                return [4 /*yield*/, pool.query("UPDATE cuenta SET saldo = saldo - " + monto_trans + " WHERE id_persona = " + idpersona)];
+                return [4 /*yield*/, pool.query("SELECT *FROM cuenta where id_persona = " + idpersona)];
             case 1:
+                cuenta = _b.sent();
+                return [4 /*yield*/, cuenta[0].saldo];
+            case 2:
+                dinero = _b.sent();
+                return [4 /*yield*/, pool.query("SELECT *FROM cuenta where id_persona = " + idpersona_trans)];
+            case 3:
+                cuentaResive = _b.sent();
+                return [4 /*yield*/, pool.query("UPDATE cuenta SET saldo = saldo - " + monto_trans + " WHERE id_persona = " + idpersona)];
+            case 4:
                 personaEnvia = _b.sent();
                 return [4 /*yield*/, pool.query(" UPDATE cuenta SET saldo = saldo + " + monto_trans + " WHERE id_persona = " + idpersona_trans)];
-            case 2:
+            case 5:
                 personaResive = _b.sent();
+                fecha = new Date();
+                dineroActual = dinero - Number(monto_trans);
+                if (!(personaEnvia && personaResive)) return [3 /*break*/, 7];
+                return [4 /*yield*/, pool.query("insert into operacion values(" + cuenta[0].id_cuenta + "," + cuentaResive[0].id_cuenta + ",CURRENT_TIMESTAMP," + dinero + "," + dineroActual + "," + idpersona + ")")];
+            case 6:
+                operation = _b.sent();
+                _b.label = 7;
+            case 7:
+                // const operacion = await pool.query(`select * from  operacion`);
+                // console.log(operacion);
                 res.json({
                     personaEnvia: personaEnvia,
                     personaResive: personaResive

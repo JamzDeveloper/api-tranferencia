@@ -47,6 +47,7 @@ var getSaldo = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, pool.query("SELECT *FROM cuenta where id_persona = " + idpersona)];
             case 1:
                 cuenta = _a.sent();
+                // console.log(cuenta[0].id_cuenta);
                 res.json(cuenta);
                 return [2 /*return*/];
         }

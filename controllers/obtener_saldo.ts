@@ -6,5 +6,6 @@ export const getSaldo = async (req: Request, res: Response) => {
   const cuenta = await pool.query(
     `SELECT *FROM cuenta where id_persona = ${idpersona}`
   );
+  // console.log(cuenta[0].id_cuenta);
   res.json(cuenta);
 };
