@@ -9,6 +9,7 @@ var login_1 = __importDefault(require("../routes/login"));
 var buscar_persona_1 = __importDefault(require("../routes/buscar_persona"));
 var transferencia_1 = __importDefault(require("../routes/transferencia"));
 var obtener_saldo_1 = __importDefault(require("../routes/obtener_saldo"));
+var operaciones_1 = __importDefault(require("../routes/operaciones"));
 var Server = /** @class */ (function () {
     function Server() {
         this.apiPaths = {
@@ -16,7 +17,8 @@ var Server = /** @class */ (function () {
             buscarPersona: "/api/buscar-persona",
             saldo: "/api/saldo",
             recarga: "/api/recarga",
-            transferencia: "/api/transferencia"
+            transferencia: "/api/transferencia",
+            operaciones: "/api/operaciones"
         };
         this.app = (0, express_1["default"])();
         this.port = process.env.PORT || "8000";
@@ -33,6 +35,7 @@ var Server = /** @class */ (function () {
         this.app.use(this.apiPaths.buscarPersona, buscar_persona_1["default"]);
         this.app.use(this.apiPaths.transferencia, transferencia_1["default"]);
         this.app.use(this.apiPaths.saldo, obtener_saldo_1["default"]);
+        this.app.use(this.apiPaths.operaciones, operaciones_1["default"]);
     };
     Server.prototype.listen = function () {
         var _this = this;
