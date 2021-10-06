@@ -33,7 +33,7 @@ export const getTransferencia = async (req: Request, res: Response) => {
   
   if (personaEnvia && personaResive) {
    const operation=  await pool.query(
-      `insert into operacion values(${cuenta[0].id_cuenta},${cuentaResive[0].id_cuenta},CURRENT_TIMESTAMP,${dinero},${dineroActual},${idpersona})`
+      `insert into operacion values(${cuenta[0].id_cuenta},${cuentaResive[0].id_cuenta},${idpersona},${idpersona_trans},CURRENT_TIMESTAMP,${dinero},${dineroActual})`
     );
     //console.log(operation);
   }

@@ -45,7 +45,7 @@ var getOperaciones = function (req, res) { return __awaiter(void 0, void 0, void
             case 0:
                 cuenta = req.query.cuenta;
                 console.log(cuenta);
-                return [4 /*yield*/, pool.query("SELECT PE.nombre as 'Nombre', PE.apellido AS 'Apellidos', PE.dni AS 'Dni', OP.id_cuentadestino AS 'Cta. Destino', OP.monto_antes - OP.monto_actual as 'Monto', OP.fechayhora AS 'Fecha y Hora' FROM operacion OP INNER JOIN persona PE ON OP.id_personadest = PE.id_persona WHERE OP.id_cuentaorigen = " + ("" + cuenta) + " ORDER BY(OP.fechayhora) DESC")];
+                return [4 /*yield*/, pool.query("SELECT PE.nombre as 'Nombre', PE.apellido AS 'Apellidos', PE.dni AS 'Dni',\n    OP.id_cuentadestino AS 'CtaDestino', OP.monto_antes - OP.monto_actual as 'Monto', \n    OP.fecha AS 'FechayHora' FROM operacion OP INNER JOIN persona PE ON \n    OP.id_persondest = PE.id_persona  WHERE OP.id_cuentaorigen =  " + ("" + cuenta) + "\n    OR OP.id_cuentadestino =  " + ("" + cuenta) + " ORDER BY(OP.fecha) DESC")];
             case 1:
                 operaciones = _a.sent();
                 res.json(operaciones);
